@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Defensie</title>
+
+<link rel="stylesheet" type="text/css" href="Main.css">
+
+<style>
+  .container {
+    position: relative;
+    text-align: center;
+    color: white;
+  }
+  
+  .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  </style>
+
+</head>
+<body>
+
+<div class="header">
+    <h1>Home</h1>
+</div>
+
+<!-- Top Navigation Menu -->
+    <div class="topnav">
+      <a href="index.html" class="active">Home</a>
+        <a href="KaartArcGIS.html">Kaart Kazernes</a>
+        <a href="Kaarten.html">Kaart Oefenterrein</a>
+        <a href="KaartLeaflet.html">Kaart Vliegbasis</a>
+        <a href="KaartOpenLayers.html">Kaart Maritiem gebied</a>
+        <a href="KaartEmbed.html">Kaart Navo</a>
+        <a href="chartjs.html">Visualisaties</a>
+      <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+        <i class="fa fa-bars"></i>
+      </a>
+    </div>
+
+<!--Banner-->
+<div class="banner">
+        <img src="Defensie.avif" alt="https://werkenbijdefensie.nl/vacatures/militaire-vacatures" style="width:100%">
+    <div class="header2">
+      <h2>Defensie locaties in Nederland</h2>
+    </div>
+</div>
+
+
+<!--Text-->
+<div class="text"><p>Welkom op de pagina waar informatie te vinden is over verschillende Defensie locaties in Nederland. 
+    De locaties van Defensie liggen door heel Nederland. De Nederlandse Defensie bestaat uit de Landmacht, Luchtmacht, Marine en de Koninklijke marechaussee.
+    Hieronder een overzicht van vijf verschillende soorten kaarten met informatie over de verschillende Defensie locaties. Daarnaast zijn er ook visualisaties gemaakt van beschikbare data over Defensie.</p>
+</div>
+
+<div class="left"><p><b>Kazernes</b>: deze kaart is te vinden onder de knop Kaart Kazerne. Hierop is een ArcGIS kaart te zien met de punten van alle kazernes in Nederland.</p>
+</div>
+
+<div class="right"><p><b>Schiet en Oefenterreinen</b>: deze kaart is te vinden onder de knop Kaart Oefenterrein. Hierop is een Maplibre kaart te zien met in het blauw de vlakken van alle schiet- en oefenterreinen in Nederland.</p>
+</div>
+
+<div class="left"><p><b>Vliegbasis</b>: deze kaart is te vinden onder de knop Kaart Vliegbasis. Hierop is een Leaflet kaart te zien met de lijnen van alle vliegbasises in Nederland. Daarnaast is er ook een grote rode cirkel gevisualiseerd, deze is ter verduidelijking van het gebied van de lijnen.</p>
+</div>
+
+<div class="right"><p><b>Maritiem gebied</b>: deze kaart is te vinden onder de knop Kaart Maritiem gebied. Hierop is een Openlayers kaart te zien met een lijn en vlak (bathymetry) van het maritieme gebied van Nederland op de Noordzee.</p>
+</div>
+
+<div class="left"><p><b>Navo landen</b>: deze kaart is te vinden onder de knop Kaart Navo. Hierop is een Query & Embedded kaart te zien met alle landen die lid zijn van de NAVO. Deze landen zijn aangegeven doormiddel van de kleur blauw.</p>
+</div>
+
+<!--Footer-->
+<div class="footer">
+
+<div class="container">
+  <img src="Defensieplant.jpg" style="width:100%;">
+  <div class="centered">Copyright 2022 by Merit van Doleweerd</div>
+</div>
+</div>
+<!-- End smartphone / tablet look -->
+</div>
+
+<script>
+function myFunction() {
+  var x = document.getElementById("myLinks");
+  if (x.style.display === "block") {
+    x.style.display = "none";
+  } else {
+    x.style.display = "block";
+  }
+}
+</script>
+</body>
+</html>

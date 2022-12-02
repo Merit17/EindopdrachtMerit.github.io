@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8">
+    <title>Maritiem gebied</title>
+
+    <link rel="stylesheet" type="text/css" href="Main.css">
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.6.5/css/ol.css" type="text/css">
+    <script src="https://openlayers.org/en/v4.6.5/build/ol.js"></script>
+
+    <style>
+      .map {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+
+    </style>
+  </head>
+
+  <body>
+    <div class="header">
+      <h1>Openlayers</h1>
+    </div>
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <a href="index.html" class="active">Home</a>
+    <a href="KaartArcGIS.html">Kaart Kazernes</a>
+    <a href="Kaarten.html">Kaart Oefenterrein</a>
+    <a href="KaartLeaflet.html">Kaart Vliegbasis</a>
+    <a href="KaartOpenLayers.html">Kaart Maritiem gebied</a>
+    <a href="KaartEmbed.html">Kaart Navo</a>
+    <a href="chartjs.html">Visualisaties</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+    <div id="map" class="map"></div>
+
+    <script>
+
+var layers = [
+  new ol.layer.Tile({
+    source: new ol.source.OSM(),
+  }),
+
+  new ol.layer.Image({
+    extent: [-20037508, -20037508, 20037508, 20037508],
+
+    source: new ol.source.ImageWMS({
+      projection: 'EPSG:3857', // here is the source projection
+      url: 'https://inspire.caris.nl/geoserver/boundary/wms',
+      params: {'LAYERS': 'AU.MaritimeBoundary'},
+      ratio: 1,
+      serverType: 'geoserver',
+    }),
+  }),
+
+  new ol.layer.Image({
+    extent: [-20037508, -20037508, 20037508, 20037508],
+
+    source: new ol.source.ImageWMS({
+      projection: 'EPSG:3857', // here is the source projection
+      url: 'https://inspire.caris.nl/geoserver3/ows',
+      params: {'LAYERS': 'bathy_wcs:EL.ElevationGridCoverage'},
+      ratio: 1,
+      serverType: 'geoserver',
+    }),
+
+}),
+
+];
+
+var map = new ol.Map({
+  layers: layers,
+  target: 'map',
+  view: new ol.View({
+    center: [1000148, 7069099],
+    zoom: 6,
+
+  }),
+
+});
+
+    </script>
+
+<!--Footer-->
+<div class="footer">
+  <p>Copyright 2022 by Merit van Doleweerd</p>
+</div>
+
+  </body>
+</html>

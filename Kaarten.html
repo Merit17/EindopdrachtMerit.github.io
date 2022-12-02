@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<title>Oefenterrein</title>
+
+    <link rel="stylesheet" type="text/css" href="Main.css">
+
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+<script src="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.js"></script>
+<link href="https://unpkg.com/maplibre-gl@2.1.9/dist/maplibre-gl.css" rel="stylesheet" />
+<style>
+	body { margin: 0; padding: 0; }
+	#map { height: 600px; 
+    width: 100% }
+</style>
+</head>
+<body>
+
+<div class="header">
+    <h1>Maplibre</h1>
+</div>
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+    <a href="index.html" class="active">Home</a>
+      <a href="KaartArcGIS.html">Kaart Kazernes</a>
+      <a href="Kaarten.html">Kaart Oefenterrein</a>
+      <a href="KaartLeaflet.html">Kaart Vliegbasis</a>
+      <a href="KaartOpenLayers.html">Kaart Maritiem gebied</a>
+      <a href="KaartEmbed.html">Kaart Navo</a>
+      <a href="chartjs.html">Visualisaties</a>
+    <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+      <i class="fa fa-bars"></i>
+    </a>
+  </div>
+
+
+<div id="map"></div>
+<script>
+var map = new maplibregl.Map({
+    container: 'map', // container id
+    style: 'https://api.maptiler.com/maps/streets/style.json?key=get_your_own_OpIi9ZULNHzrESv6T2vL', // style URL
+    center: [6, 52.5], // starting position [lng, lat]
+    zoom: 7 // starting zoom
+});
+
+map.on('load', function () {
+
+    map.addSource("DefensieOefenSchietterrein", {
+        'type': 'vector',
+        'tiles': [
+        'https://vectortileservices2.arcgis.com/rtefou6JFIxFvYTf/arcgis/rest/services/DefensieOefenSchietterrein/VectorTileServer/tile/{z}/{y}/{x}.pbf'
+        ],
+        'minzoom': 0,
+        'maxzoom': 22
+    });
+    map.addLayer(
+        {"id":"Defensielocaties","type":"fill","source":"DefensieOefenSchietterrein","source-layer":"Defensielocaties","layout":{},
+        "paint":{"fill-color":"blue","fill-outline-color":"#6E6E6E"
+            }
+        },
+        'water_name_line'
+    );
+
+    var popup = new maplibregl.Popup({
+        closeButton: false,
+        closeOnClick: false
+    });
+
+    map.on('mouseenter', 'Defensielocaties', function (e) {
+        // Change the cursor style as a UI indicator.
+        map.getCanvas().style.cursor = 'pointer';
+
+        var coordinates = e.features[0].geometry.coordinates.slice()
+
+        var description = "";
+        for (const [key, value] of Object.entries(e.features[0].properties)) {
+          description += `${key}: ${value} <br>`;
+        }
+
+
+        // Ensure that if the map is zoomed out such that multiple
+        // copies of the feature are visible, the popup appears
+        // over the copy being pointed to.
+        while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+        }
+
+        // Populate the popup and set its coordinates
+        // based on the feature found.
+        popup.setLngLat(coordinates).setHTML(description).addTo(map);
+    });
+
+    map.on('mouseleave', 'Defensielocaties', function () {
+        map.getCanvas().style.cursor = '';
+        popup.remove();
+    });
+
+});
+</script>
+
+<!--Footer-->
+<div class="footer">
+  <p>Copyright 2022 by Merit van Doleweerd</p>
+</div>
+
+</body>
+</html>

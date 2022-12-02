@@ -1,0 +1,99 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <title>Kazernes</title>
+
+    <link rel="stylesheet" type="text/css" href="Main.css">
+
+    <style>
+      html,
+      body,
+      #viewDiv {
+        padding: 0;
+        margin: 0;
+        height: 100%;
+        width: 100%;
+      }
+    </style>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.25/esri/themes/light/main.css">
+    <script src="https://js.arcgis.com/4.25/"></script>
+    
+    <script>
+      require(["esri/config", "esri/Map", "esri/layers/VectorTileLayer", "esri/views/MapView", "esri/widgets/BasemapToggle",
+      "esri/widgets/BasemapGallery"], function(esriConfig, Map, VectorTileLayer, MapView, BasemapToggle, BasemapGallery) {
+
+        const vtlLayer = new VectorTileLayer({
+      url: "https://vectortileservices2.arcgis.com/rtefou6JFIxFvYTf/arcgis/rest/services/DefensielocatiesKazerne_Points_TILE/VectorTileServer"
+    });
+
+        esriConfig.apiKey = "AAPK3423c4c739474b4a8d4420a1235dbbf49gjSJNYpQRGLeqP0Tmklq4cFMcMQdh7NH31WOuj7oJncIIxutWyudTY94OfgLwkb";
+
+        const map = new Map({
+          basemap: "arcgis-topographic", // Basemap layer service
+          layers: [vtlLayer]
+
+        });
+        
+        const view = new MapView({
+  map: map,
+  center: [5.947, 51.790], // Longitude, latitude
+  zoom: 7, // scale: 72223.819286
+  container: "viewDiv",
+  constraints: {
+    snapToZoom: false
+  }
+});
+      
+      const basemapToggle = new BasemapToggle({
+        view: view,
+        nextBasemap: "arcgis-imagery"
+     });
+      
+      view.ui.add(basemapToggle,"bottom-right");
+      
+      const basemapGallery = new BasemapGallery({
+        view: view,
+        source: {
+          query: {
+            title: '"World Basemaps for Developers" AND owner:esri'
+          }
+        }
+      });
+      
+      view.ui.add(basemapGallery, "top-right"); // Add to the view
+      
+   });
+    </script>
+    
+  </head>
+  <body>
+
+    <div class="header">
+      <h1>ArcGIS</h1>
+    </div>
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <a href="index.html" class="active">Home</a>
+    <a href="KaartArcGIS.html">Kaart Kazernes</a>
+    <a href="Kaarten.html">Kaart Oefenterrein</a>
+    <a href="KaartLeaflet.html">Kaart Vliegbasis</a>
+    <a href="KaartOpenLayers.html">Kaart Maritiem gebied</a>
+    <a href="KaartEmbed.html">Kaart Navo</a>
+    <a href="chartjs.html">Visualisaties</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+
+    <div id="viewDiv"></div>
+
+  <!--Footer-->
+<div class="footer">
+  <p>Copyright 2022 by Merit van Doleweerd</p>
+</div>
+
+  </body>
+</html>

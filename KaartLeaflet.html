@@ -1,0 +1,81 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Vliegbasis</title>
+ 
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+     integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+     crossorigin=""/>
+ 
+<!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+     crossorigin=""></script>
+
+     <link rel="stylesheet" type="text/css" href="Main.css">
+
+<style> 
+#kaart { 
+    height: 100%; 
+    width: 100% 
+    }
+</style>
+ 
+</head>
+ 
+<body>
+<!--<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
+
+<div class="header">
+  <h1>Leaflet</h1>
+</div>
+
+<!-- Top Navigation Menu -->
+<div class="topnav">
+  <a href="index.html" class="active">Home</a>
+    <a href="KaartArcGIS.html">Kaart Kazernes</a>
+    <a href="Kaarten.html">Kaart Oefenterrein</a>
+    <a href="KaartLeaflet.html">Kaart Vliegbasis</a>
+    <a href="KaartOpenLayers.html">Kaart Maritiem gebied</a>
+    <a href="KaartEmbed.html">Kaart Navo</a>
+    <a href="chartjs.html">Visualisaties</a>
+  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+    <i class="fa fa-bars"></i>
+  </a>
+</div>
+ 
+<div id="kaart"></div>
+ 
+ 
+<script>
+    //create map variabele
+var mymap = L.map('kaart').setView([52,5], 7);
+ 
+    // load osm map
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 12,
+    attribution: '-----'    
+}).addTo(mymap);
+ 
+    // circle on the map
+var circle = L.circle([52.3, 5.5], {
+    color: 'red',
+    fillColor: '#f03',
+    fillOpacity: 0.4,
+    radius: 150000
+}).addTo(mymap);
+
+  fetch("vliegbasis.geojson").then(res => res.json()).then(data => {
+    // add GeoJSON layer to the map once the file is loaded
+    L.geoJson(data).addTo(mymap);
+  });
+    
+  </script>
+
+  <!--Footer-->
+<div class="footer">
+  <p>Copyright 2022 by Merit van Doleweerd</p>
+</div>
+
+</body>
+</html>
