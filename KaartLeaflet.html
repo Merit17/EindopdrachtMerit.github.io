@@ -1,82 +1,83 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <title>Vliegbasis</title>
- 
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-     integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
-     crossorigin=""/>
- 
-<!-- Make sure you put this AFTER Leaflet's CSS -->
- <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
-     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
-     crossorigin=""></script>
 
-     <link rel="stylesheet" type="text/css" href="Main.css">
+   <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+      integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+      crossorigin=""
+    />
 
-<style> 
-#kaart { 
-    height: 100%; 
-    width: 100% 
-    }
+    <script
+      src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+      integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+      crossorigin=""
+    ></script>
+
+    <link rel="stylesheet" type="text/css" href="Main.css">
+<style>
+#map {
+    width: 100%;
+    height:500px;
+}
 </style>
- 
+
 </head>
- 
 <body>
-<!--<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>-->
 
-<div class="header">
-  <h1>Leaflet</h1>
-</div>
+    <div class="header">
+        <h1>Leaflet</h1>
+      </div>
+      
+      <!-- Top Navigation Menu -->
+      <div class="topnav">
+        <a href="index.html" class="active">Home</a>
+          <a href="KaartArcGIS.html">Kaart Kazernes</a>
+          <a href="Kaarten.html">Kaart Oefenterrein</a>
+          <a href="KaartLeaflet.html">Kaart Vliegbasis</a>
+          <a href="KaartOpenLayers.html">Kaart Maritiem gebied</a>
+          <a href="KaartEmbed.html">Kaart Navo</a>
+          <a href="chartjs.html">Visualisaties</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <i class="fa fa-bars"></i>
+        </a>
+      </div>
 
-<!-- Top Navigation Menu -->
-<div class="topnav">
-  <a href="index.html" class="active">Home</a>
-    <a href="KaartArcGIS.html">Kaart Kazernes</a>
-    <a href="Kaarten.html">Kaart Oefenterrein</a>
-    <a href="KaartLeaflet.html">Kaart Vliegbasis</a>
-    <a href="KaartOpenLayers.html">Kaart Maritiem gebied</a>
-    <a href="KaartEmbed.html">Kaart Navo</a>
-    <a href="chartjs.html">Visualisaties</a>
-  <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-    <i class="fa fa-bars"></i>
-  </a>
-</div>
- 
-<div id="kaart"></div>
- 
- 
+    <div id="map"></div>
+
 <script>
-    //create map variabele
-var mymap = L.map('kaart').setView([52,5], 7);
- 
-    // load osm map
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 12,
-    attribution: '-----'    
-}).addTo(mymap);
- 
+
+    var map = L.map('map',{
+    center: [52.4 , 5],
+    zoom: 7
+    });
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
     // circle on the map
-var circle = L.circle([52.3, 5.5], {
+    var circle = L.circle([52.3, 5.5], {
     color: 'red',
     fillColor: '#f03',
     fillOpacity: 0.4,
     radius: 150000
-}).addTo(mymap);
+}).addTo(map);
 
   fetch("vliegbasis.geojson").then(res => res.json()).then(data => {
     // add GeoJSON layer to the map once the file is loaded
-    L.geoJson(data).addTo(mymap);
+    L.geoJson(data).addTo(map);
   });
-    
-  </script>
+
+</script>
 
   <!--Footer-->
-<div class="footer">
-  <p>Copyright 2022 by Merit van Doleweerd</p>
-</div>
+  <div class="footer">
+    <p>Copyright 2022 by Merit van Doleweerd</p>
+  </div>
 
 </body>
 </html>
